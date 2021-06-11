@@ -1,0 +1,10 @@
+swagger: "2.0"
+info:
+  title: Sample API
+  description: Easy sample API CRUD
+  version: 0.0.1
+  contact:
+    name: api support
+    email: example@mail.com
+schemes:
+  - http

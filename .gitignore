@@ -1,0 +1,12 @@
+# logs
+*.log
+# enviroments
+env/
+# cashes
+__pycache__/
+*.code-workspace
+dist
+project.egg-info
+pg_data
+.vscode
+*.pyc
