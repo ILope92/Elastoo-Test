@@ -33,6 +33,10 @@ class ListTasks:
             self.not_done_tasks["num"].append(task)
             self.not_done_tasks["timeout"].append(timeout)
             self.__history_num += 1
+<<<<<<< HEAD
+=======
+            print("append:", task)
+>>>>>>> 5addc26312a74061abd5358461f43a0cffcda09d
 
     async def __delete_task__(self, index: int = 0):
         keys = self.not_done_tasks.keys()
@@ -44,7 +48,15 @@ class ListTasks:
             # gets data tasks
             tasks_worker = [await app["queue_worker"].get()]
             timeouts = [await app["queue_timeout"].get()]
+<<<<<<< HEAD
             self.__add_task__(tasks_worker, timeouts)
+=======
+            # print("await ", app["queue_worker"].qsize())
+            # loop = asyncio.get_event_loop()
+            # add temp data task
+            self.__add_task__(tasks_worker, timeouts)
+            # loop.create_task(self.completing_tasks())
+>>>>>>> 5addc26312a74061abd5358461f43a0cffcda09d
 
     async def completing_tasks(self, app: web.Application):
         while await self.__size_tasks__():
