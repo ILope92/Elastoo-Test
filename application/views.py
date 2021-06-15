@@ -3,7 +3,7 @@ from aiohttp_apispec import docs, request_schema, response_schema
 
 from application.models.requests_schemas import POST
 from application.models.response_schemas import ResultQueueWorkSchema, ResultSchema
-from application.models.worker_model import Worker
+from application.worker import ListTasks
 
 
 @docs(
@@ -19,8 +19,7 @@ from application.models.worker_model import Worker
 )
 @response_schema(ResultSchema())
 async def get_result(request: web.Request):
-    # queue = request.app["queue_worker"]
-    return web.json_response({"result": Worker.result_worker})
+    return web.json_response(ListTasks.get_done_tasks())
 
 
 @docs(
@@ -36,15 +35,7 @@ async def get_result(request: web.Request):
 )
 @response_schema(ResultQueueWorkSchema())
 async def get_queue_work(request: web.Request):
-    response = {
-        f"task_{Worker.list_id[num]}": {
-            "date_created": Worker.date_create[num],
-            "num": Worker.not_done_tasks[num],
-            "timeout": Worker.timeout[num],
-        }
-        for num in range(len(Worker.not_done_tasks))
-    }
-    return web.json_response(response)
+    return web.json_response(ListTasks.get_not_done_tasks())
 
 
 @docs(
