@@ -11,7 +11,7 @@ from application.middlewares.exception_handler import (
     workers_middleware,
 )
 from application.routes import setup_routes
-from application.worker import worker
+from application.worker import ListTasks
 
 import asyncio
 
@@ -47,17 +47,12 @@ def setup_external_libraries(application: Application) -> None:
     )
 
 
-def setup_postgres(application: Application, pg_url: str = None) -> None:
-    # its my template
-    engine = create_engine(pg_url)
-    application["db"] = engine
-    application["session"] = sessionmaker(bind=engine)
-
-
 def setup_workers(application: Application):
     loop = asyncio.get_event_loop()
+    list_tasks = ListTasks()
     application["queue_worker"] = asyncio.Queue()
     application["queue_timeout"] = asyncio.Queue()
-    application["result_worker"] = []
-    application["not_done_tasks"] = []
-    application["listen"] = loop.create_task(worker(application))
+    application["worker-tasks"] = loop.create_task(list_tasks.await_tasks(application))
+    application["worker-complete"] = loop.create_task(
+        list_tasks.completing_tasks(application)
+    )
