@@ -44,6 +44,7 @@ class ListTasks:
             # gets data tasks
             tasks_worker = [await app["queue_worker"].get()]
             timeouts = [await app["queue_timeout"].get()]
+
             self.__add_task__(tasks_worker, timeouts)
 
     async def completing_tasks(self, app: web.Application):
