@@ -1,7 +1,7 @@
 # Sample code
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://github.com/ILope92/SampleCode/blob/master/LICENSE)
 
-Проект подразумевает по техническому заданию от Elastoo. Асинхронное приложение на веб-фреймворке aiohttp, включающее 2 логические части: API и worker.
+Проект подразумевает по [техническому заданию](https://github.com/ILope92/Elastoo-Test/blob/master/technical%20specification.txt) от компании Elastoo. Асинхронное приложение на веб-фреймворке aiohttp, включающее 2 логические части: API и worker.
 
 ## Оглавление
 - [Описание проекта](#description)
