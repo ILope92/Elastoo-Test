@@ -9,5 +9,5 @@ COPY requirements.txt requirements.txt
 RUN python3.8 -m pip install -r requirements.txt
 COPY . .
 
-CMD ["python3", "run_app.py"]
+CMD ["python3", "main.py"]
 
