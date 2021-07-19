@@ -1,8 +1,8 @@
 from aiohttp import web
 from aiohttp_apispec import docs, request_schema, response_schema
 
-from application.models.requests_schemas import POST
-from application.models.response_schemas import ResultQueueWorkSchema, ResultSchema
+from application.schemas.requests_schemas import POST
+from application.schemas.response_schemas import ResultQueueWorkSchema, ResultSchema
 from application.worker import ListTasks
 
 

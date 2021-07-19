@@ -1,11 +1,9 @@
-PROJECT_NAME ?= unnamed
-VERSION = $(shell python3 setup.py --version | tr '+' '-')
-PROJECT_NAMESPACE ?= lening
-REGISTRY_IMAGE ?= $(PROJECT_NAMESPACE)/$(PROJECT_NAME)
-
 all:
-	@echo "make clean		- Remove files created by distutils"
-	@echo "make dev      	- install enviroment python3.8"
+	@echo "make app			- Start app container"
+	@echo "make local_app	- Start app local"
+	@echo "make devenv      - install enviroment python3.9"
+	@echo "make compose     - build and run app, db services"
+	@echo "make clean     	- clean cache"
 	@exit 0
 
 clean: clean_cache
@@ -18,20 +16,22 @@ clean_cache:
 	rm -fr application/responses/__pycache__
 	rm -fr application/utils/__pycache__
 
-dev: clean
+devenv: clean
 	rm -rf env
+	# создаем новое окружение
 	apt-get install python3-venv
-	python3.8 -m venv env
-	env/bin/python3.8 -m pip install pip --upgrade
-	env/bin/python3.8 -m pip install wheel
-	env/bin/python3.8 -m pip install -r requirements.txt
+	python3.9 -m venv env
+	env/bin/python3.9 -m pip install pip --upgrade
+	env/bin/python3.9 -m pip install wheel
+	# ставим зависимости
+	env/bin/python3.9 -m pip install -r requirements.txt
 
-env_delete:
-	rm -fr env
-	rm -fr .vscode
+compose:
+	sudo docker-compose up --build -d
 
-run_dev: dev
-	env/bin/python3.8 run_app.py
+app:
+	docker stop elastoo-application || true
+	docker-compose run -d -p 3000:8000 --name elastoo-application app
 
-run:
-	python3.8 run_app.py
+local_app:
+	python -m main.py

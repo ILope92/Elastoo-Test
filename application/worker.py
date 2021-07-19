@@ -65,4 +65,4 @@ class ListTasks:
             if len(self.not_done_tasks["num"]) != 0:
                 return True
             else:
-                await asyncio.sleep(0)
+                await asyncio.sleep(1)

@@ -3,9 +3,6 @@ import logging
 from aiohttp.web import Application
 from aiohttp_apispec import setup_aiohttp_apispec
 
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
-
 from application.middlewares.exception_handler import (
     error_middleware,
     workers_middleware,
@@ -17,8 +14,8 @@ import asyncio
 
 
 def setup_application(pg_url: str = None) -> Application:
+    print("start")
     app = Application()
-    # setup_postgres(app, pg_url=pg_url)
     setup_routes(app)
     setup_logging(app)
     setup_middlewares(app)
@@ -43,7 +40,7 @@ def setup_external_libraries(application: Application) -> None:
         title="Documentation",
         version="v1",
         url="/swagger.json",
-        swagger_path="/swagger",
+        swagger_path="/api/docs",
     )
 
 
